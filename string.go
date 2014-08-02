@@ -3,8 +3,6 @@ package validations
 import (
 	"regexp"
 
-	"bitbucket.org/altipla/hotels/site/utils"
-
 	"github.com/juju/errgo"
 )
 
@@ -58,7 +56,8 @@ func MaxLength(length int) StrFunc {
 
 func Length(minlength, maxlength int) StrFunc {
 	return func(value string) error {
-		if !utils.InRange(len(value), minlength, maxlength) {
+		l := len(value)
+		if l < minlength || l > maxlength {
 			return errgo.Newf("length")
 		}
 
@@ -81,5 +80,5 @@ func RegExp(expression string) StrFunc {
 func Email() StrFunc {
 	// Regexp comming from Angular.JS, to have the same validation
 	// Backtick has to be escaped apart (+ "`" +)
-	return RegExp(`(?i)^[a-z0-9!#$%&'*+\/=?^_`+"`"+`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$`)
+	return RegExp(`(?i)^[a-z0-9!#$%&'*+\/=?^_` + "`" + `{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$`)
 }
