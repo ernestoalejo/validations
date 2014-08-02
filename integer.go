@@ -1,8 +1,6 @@
 package validations
 
 import (
-	"bitbucket.org/altipla/hotels/site/utils"
-
 	"github.com/juju/errgo"
 )
 
@@ -22,7 +20,7 @@ func Int(field int, validations []IntFunc) Func {
 
 func Range(minvalue, maxvalue int) IntFunc {
 	return func(value int) error {
-		if !utils.InRange(value, minvalue, maxvalue) {
+		if value < minvalue || value > maxvalue {
 			return errgo.Newf("range")
 		}
 
