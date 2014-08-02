@@ -13,7 +13,7 @@ go get github.com/ernestoalejo/validations
 API reference
 -------------
 
-http://godoc.og/github.com/ernestoalejo/validations
+http://godoc.org/github.com/ernestoalejo/validations
 
 
 Examples
