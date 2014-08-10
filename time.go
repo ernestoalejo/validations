@@ -38,6 +38,12 @@ func ParseTime(source, format string) TimeFunc {
 	}
 }
 
+func ParseTimeUnix(seconds int64) TimeFunc {
+	return func(value time.Time) (time.Time, error) {
+		return time.Unix(seconds, 0), nil
+	}
+}
+
 func NotBefore(otherTime time.Time) TimeFunc {
 	return func(value time.Time) (time.Time, error) {
 		if value.Before(otherTime) {
