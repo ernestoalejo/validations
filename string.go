@@ -82,3 +82,15 @@ func Email() StrFunc {
 	// Backtick has to be escaped apart (+ "`" +)
 	return RegExp(`(?i)^[a-z0-9!#$%&'*+\/=?^_` + "`" + `{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$`)
 }
+
+func In(allowed ...string) StrFunc {
+	return func(value string) error {
+		for _, item := range allowed {
+			if item == value {
+				return nil
+			}
+		}
+
+		return errgo.Newf("in")
+	}
+}
