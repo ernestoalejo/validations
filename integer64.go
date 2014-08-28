@@ -48,6 +48,16 @@ func PositiveZero64() Int64Func {
   }
 }
 
+func MinValue64(min int64) Int64Func {
+  return func(value int64) error {
+    if value > min {
+      return errgo.Newf("min value")
+    }
+
+    return nil
+  }
+}
+
 func MaxValue64(max int64) Int64Func {
   return func(value int64) error {
     if value > max {
