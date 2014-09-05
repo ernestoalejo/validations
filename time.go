@@ -63,3 +63,13 @@ func NotAfter(otherTime time.Time) TimeFunc {
 		return value, nil
 	}
 }
+
+func After(otherTime time.Time) TimeFunc {
+	return func(value time.Time) (time.Time, error) {
+		if !value.After(otherTime) {
+			return time.Time{}, errgo.Newf("after")
+		}
+
+		return value, nil
+	}
+}
