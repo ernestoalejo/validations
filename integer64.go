@@ -6,11 +6,11 @@ import (
 
 type Int64Func func(s int64) error
 
-func Int64(field int64, validations []Int64Func) Func {
+func Int64(fieldName string, field int64, validations []Int64Func) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "int64 field: " + fieldName)
 			}
 		}
 

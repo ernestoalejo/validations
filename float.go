@@ -6,11 +6,11 @@ import (
 
 type FloatFunc func(s float64) error
 
-func Float(field float64, validations []FloatFunc) Func {
+func Float(fieldName string, field float64, validations []FloatFunc) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "float field: " + fieldName)
 			}
 		}
 

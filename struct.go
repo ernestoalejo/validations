@@ -8,11 +8,11 @@ import (
 
 type StructFunc func(s interface{}) error
 
-func Struct(field interface{}, validations []StructFunc) Func {
+func Struct(fieldName string, field interface{}, validations []StructFunc) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "struct field: " + fieldName)
 			}
 		}
 

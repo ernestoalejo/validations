@@ -8,11 +8,11 @@ import (
 
 type StrFunc func(s string) error
 
-func Str(field string, validations []StrFunc) Func {
+func Str(fieldName, field string, validations []StrFunc) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "string field: " + fieldName)
 			}
 		}
 

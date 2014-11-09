@@ -6,11 +6,11 @@ import (
 
 type IntFunc func(s int) error
 
-func Int(field int, validations []IntFunc) Func {
+func Int(fieldName string, field int, validations []IntFunc) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "int field: " + fieldName)
 			}
 		}
 

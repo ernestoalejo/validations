@@ -9,13 +9,13 @@ import (
 
 type TimeFunc func(s time.Time) (time.Time, error)
 
-func Time(field *time.Time, validations []TimeFunc) Func {
+func Time(fieldName string, field *time.Time, validations []TimeFunc) Func {
 	return func() error {
 		privField := time.Time{}
 
 		for _, validation := range validations {
 			if newField, err := validation(privField); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "time field: " + fieldName)
 			} else {
 				privField = newField
 			}

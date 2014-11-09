@@ -8,11 +8,11 @@ import (
 
 type SliceFunc func(s interface{}) error
 
-func Slice(field interface{}, validations []SliceFunc) Func {
+func Slice(fieldName string, field interface{}, validations []SliceFunc) Func {
 	return func() error {
 		for _, validation := range validations {
 			if err := validation(field); err != nil {
-				return errgo.Mask(err)
+				return errgo.NoteMask(err, "slice field: " + fieldName)
 			}
 		}
 
